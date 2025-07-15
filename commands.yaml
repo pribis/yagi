@@ -1,6 +1,5 @@
 defaults:
   gam: '/usr/local/bin/gam'
-  prompting: True
   debug: 1
 
   
@@ -10,12 +9,6 @@ shared_inbox:
   - none
 
 default_domain: boxcarpress.com
-
-calendars:
-  office: "boxcarpress.com_mupagskhbp2lmp1f3chcc69aeo@group.calendar.google.com"
-  timeoff: "4ll8epfp08i78ukv2huicjsl88@group.calendar.google.com"
-
-document: = "https://docs.google.com/document/d/1Z86mHubUh2s1x7HMS4Z6hNtIgixn0rZv2ELi8Toli8M/edit"
 
 
 commands:
@@ -30,7 +23,7 @@ commands:
     help:
       key: 'show alias'
       def: 'Show the info for an alias.'
-    command: 'info alias _alias_'
+    command: 'info alias _alias_name_'
     group: alias
 
   add_send_as: 
