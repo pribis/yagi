@@ -108,7 +108,6 @@ commands:
       key: 'add new user'
       def: 'Process a new user.'
     command: '_email_ _username_ _firstname_ _lastname_'
-    call_forward: gamu_new_user
     group: user
     
   add_to_group:
@@ -153,14 +152,6 @@ commands:
     command: 'calendar _calendar_email_ update _acl_ _user_email_'
     group: calendar
 
-  show_company_cals:
-    help:
-      key: 'show company cals'
-      def: 'List available calendars.'
-    call_forward: show_company_cals
-    group: calendar
-
-    
   show_groups:
     help:
       key: 'show groups'
