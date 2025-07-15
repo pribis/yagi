@@ -33,11 +33,6 @@ def loadConfig():
         except yaml.YAMLError as err:
             print('There was an error opening the command configuration file: ' + err)
             exit(1)
-
-
-
-def sortHelp(h):
-    print(h)
     
 def showHelpScreen():
     global command_dict
