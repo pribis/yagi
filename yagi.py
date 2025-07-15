@@ -145,7 +145,7 @@ def reset_history():
 
 def executeGam(command):
     global command_defaults
-    ans = input("Shell I execute: 'gam " + command + "'? [y/N]: ")
+    ans = input("Execute: 'gam " + command + "'? [y/N]: ")
     if ans.lower() == 'y':
         #execute
         subprocess.call(command_defaults['gam'] + " " + command, shell=True)
