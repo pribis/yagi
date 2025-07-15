@@ -8,7 +8,7 @@ shared_inbox:
   - printing
   - none
 
-default_domain: boxcarpress.com
+default_domain: [Your google domain]
 
 
 commands:

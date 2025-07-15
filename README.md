@@ -17,9 +17,12 @@ to hoping you find some use for it.
 YAGI relies on [GAM](https://github.com/GAM-team/GAM/wiki) being installed and set up correctly.
 It will *NOT* work otherwise. 
 
-The commands.yaml file has the following sections. You will need to edit the defaults section.
+The commands.yaml.example file has the following sections. You will need to edit the defaults section.
 However, the rest of the file will probably work as-is, but feel free to make changes
 as you see fit.
+
+Rename the commands.yaml.example file to commands.yaml.
+
 
 #### defaults
 gam: the location of your gam installation.
@@ -61,7 +64,7 @@ where on the help screen to group this command
 
 
 
-#### gam command
+##### gam command
 As shown above, the command sequence has a gam command to execute. The import part are the 
 placeholders, specified but a single underscore attached to the beginning and end of the 
 word. These become the prompt YAGI will use to gather information from you. For example,
@@ -74,3 +77,16 @@ Ex. _type_your_email_ will produce:
 > type your email.
 
 [NOTE: Use at your own risk. This program is covered under the GNU GPL (v3).]
+
+
+#### command_groups
+
+Mostly these are the same as the commands section but for one major difference.
+Instead of a "command" a "command_set" is used. A command_set is a list of 
+commands to execute one after the other (I haven't tested if order is preserved).
+Each of these commands must have already been defined under the commands section.
+
+#### utils
+Utils are the most different. These are functions defined in the yagi.py file. 
+For example, call_forward:reset_history executes the reset_history() function.
+You can add anything you want, just make sure you play safe. 
