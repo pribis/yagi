@@ -1,0 +1,246 @@
+defaults:
+  gam: '/usr/local/bin/gam'
+  prompting: True
+  debug: 1
+
+  
+shared_inbox:
+  - custom
+  - printing
+  - none
+
+default_domain: boxcarpress.com
+
+calendars:
+  office: "boxcarpress.com_mupagskhbp2lmp1f3chcc69aeo@group.calendar.google.com"
+  timeoff: "4ll8epfp08i78ukv2huicjsl88@group.calendar.google.com"
+
+document: = "https://docs.google.com/document/d/1Z86mHubUh2s1x7HMS4Z6hNtIgixn0rZv2ELi8Toli8M/edit"
+
+
+commands:
+  add_alias: 
+    help:
+      key: 'add alias'
+      def: 'Add an alias to user.'
+    command: 'create alias _email_ user _username_'
+    group : alias
+        
+  show_alias:
+    help:
+      key: 'show alias'
+      def: 'Show the info for an alias.'
+    command: 'info alias _alias_'
+    group: alias
+
+  add_send_as: 
+      help:
+        key: 'send as'
+        def: 'Personal send as. Allow user to send as.'
+      command: 'user _send_from_user_ sendas _send_as_user_ "_display_name_" treatasalias false'
+      group: user
+
+  del_send_as:
+    help:
+      key: 'del send as'
+      def: "Delete a user's send as."
+    command: 'user _send_from_user_ delete sendas _send_as_email_'
+    group: user
+    
+  show_delegates:
+    help:
+      key: 'show delegates'
+      def: 'Show delegates for user.'
+    command: 'user _account_ show delegates'
+    group: delegate
+    
+  delegate:
+    help:
+      key: 'delegate'
+      def: 'Delegate an account to a user.'
+    command: 'user _delegate_username_ delegate to _give_access_to_email_'
+    group: delegate
+    
+  del_delegate:
+    help:
+      key: 'del delegate'
+      def: 'Delete a delegation.'
+    command: 'user _delegate_username_ delete delegate _email_'
+    group: delegate
+    
+  show_user: 
+    help:
+      key: 'show user'
+      def: 'Show user information.'
+    command: 'info user _username_'
+    group: user
+
+  add_shared_send_as:
+    help:
+      key: 'shared send'
+      def: 'Add shared send as alias.'
+    command: "user _fwd_to_email_ sendas _email_ '_firstname_ _lastname_'"
+    group: user
+
+  add_forward:
+    help:
+      key: 'add forward'
+      def: 'Add an address to the users account that they are allowed to forward mail to (i.e., custom).'
+    command: 'user _account_ add forwardingaddress _fwd email_'
+    group: filter
+    
+  add_filter_trash:
+    help:
+      key: 'filter trash'
+      def: 'Add a filter to trash email from another email.  Used for filtering out group email for unintended recipients.'
+    command: 'user _account_ filter from _from_email_ trash'
+    group: filter
+
+  add_filter_forward:
+    help:
+      key: 'filter forward'
+      def: 'Add filter and forward. Trash original email. DO NOT USE ALONE. PART OF CMD SET'
+    command: 'user _account_ filter to _filter_email_ label Shared markread trash forward _fwd_to_email_'
+    group: filter
+
+  add_group_filter:
+    help:
+      key: 'add group filter'
+      def: 'Add a filter to a group inbox for an address (USE THIS ONE)'
+    command: 'user _group_ filter to _filter_email_ label _label_ archive'
+    group: filter
+    
+  add_new_user:
+    help:
+      key: 'add new user'
+      def: 'Process a new user.'
+    command: '_email_ _username_ _firstname_ _lastname_'
+    call_forward: gamu_new_user
+    group: user
+    
+  add_to_group:
+    help:
+      key: 'add to group'
+      def: 'Add user to group'
+    command: 'update group _group_email_ add member user _email_'
+    group: groups
+    
+  delete_from_group:
+    help:
+      key: 'delete from group'
+      def: 'Delete user from group'
+    command: 'update group _group_email_ remove user _email_'
+    group: groups
+    
+  show_cals:
+    help:
+      key: 'show cals'
+      def: 'Show calendars a user has access to.'
+    command: 'user _email_ show calendars'
+    group: calendar
+
+  del_cal:
+    help:
+      key: 'del cal'
+      def: 'Delete a calendar for a user.'
+    command: 'user _email_ delete calendar _calendar_'
+    group: calendar
+
+  add_cal:
+    help:
+      key: 'add cal'
+      def: 'Add a calendar for a user.'
+    command: 'user _email_ add calendar _calendar_'
+    group: calendar
+
+  acl_cal:
+    help:
+      key: 'acl cal'
+      def: 'Change ACL of calendar (read|editor|owner).'
+    command: 'calendar _calendar_email_ update _acl_ _user_email_'
+    group: calendar
+
+  show_company_cals:
+    help:
+      key: 'show company cals'
+      def: 'List available calendars.'
+    call_forward: show_company_cals
+    group: calendar
+
+    
+  show_groups:
+    help:
+      key: 'show groups'
+      def: 'Show all of the email groups.'
+    command: 'print groups name description'
+    group: groups
+
+  show_members:
+    help:
+      key: 'show group members'
+      def: 'Show users in a group.'
+    command: 'print group-members group _email_ membernames'
+    group: groups
+
+  add_member:
+    help:
+      key: 'add member'
+      def: 'Add user to group.'
+    command: 'update group _group_name_ add _member_'
+    group: groups
+
+  delete_member:
+    help:
+      key: 'remove member'
+      def: 'Remove user from group'
+    command: 'update group _group_name_ remove _user_email_'
+    group: groups
+
+################################################
+# Command sets are simply commands
+# grouped together and executed in sequence.
+# They depend on the referenced commands to
+# have already have been defined under the
+# 'commands' heading.
+################################################
+command_groups:
+
+  personal_routing:
+    help:
+      key: 'personal routing'
+      def: '[cs]Setup personal routing for a user'
+    command_set:
+      - add_send_as
+      - add_alias
+    group: alias
+
+  add_forward_new:
+    help:
+      key: 'filter forward new'
+      def: '[cs]Filter email to one account and forward it to another. Trash the original.'
+    command_set:
+      - add_forward
+      - add_filter_forward
+      - add_group_filter
+      - add_send_as
+    group: filter
+
+
+###################################
+# These commands are used by gamu
+# and shouldn't be changed.
+###################################
+utils:
+  clear_history:
+    help:
+      key: 'clear history'
+      def: 'Clear all the saved variables.'
+    call_forward: reset_history
+    group: util
+    
+  show_history:
+    help:
+      key: 'show history'
+      def: 'Show the contents of the history table.'
+    call_forward: show_history
+    group: util
