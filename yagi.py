@@ -10,12 +10,8 @@ from operator import itemgetter, attrgetter
 import yaml
 
 
-
-
-
 conf_location = 'commands.yaml'
 
-#Put in a function that will process the entire command set as represented in the spreadsheet.
 command_dict = {}
 command_defaults = {}
 history = {}
@@ -142,6 +138,9 @@ def reset_history():
     print('Resetting history table')
     history = {}
     
+def gamu_new_user():
+    print('Not implemented')
+
 
 def executeGam(command):
     global command_defaults
