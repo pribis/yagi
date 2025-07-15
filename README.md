@@ -33,16 +33,26 @@ are simply google accounts accessible by multiple people via delegation.
 Commands take up the bulk of the configuration and are what YAGI is all about. They have
 a specific format you must follow or YAGI will break.
 
-Here is a breakdown:
-`  
-add_alias: #name of the command
-	help:  #help section used in the help menu
-		key: 'add alias' #the command phrase you will use at the prompt  
-		def: 'Add an alias to user.' #explanation of command phrase
-	command: 'create alias _email_ user _username_'   #the gam command (see next section)
-	group : alias  #where on the help screen to group this command
-	
-`
+Here is a breakdown for adding an alias to a user's account:
+
+* add_alias: 
+name of the command
+
+* help:
+help section used in the help menu
+
+* key: 'add alias' 
+the command phrase you will use at the prompt
+
+* def: 'Add an alias to user.' 
+explanation of command phrase
+
+* command: 'create alias _email_ user _username_'
+the gam command (see next section)
+
+* group : alias   
+where on the help screen to group this command
+
 
 
 #### gam command
