@@ -12,3 +12,4 @@ I started this project to be included with a sysadmin toolchain I use at a place
 I work. It was just a simple way to make things a bit easier for me. Here's
 to hoping you find some use for it.
 
+[NOTE: Use at your own risk. This program is covered under the GNU GPL (v3).
