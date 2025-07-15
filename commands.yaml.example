@@ -219,12 +219,12 @@ utils:
     help:
       key: 'clear history'
       def: 'Clear all the saved variables.'
-    call_forward: reset_history
+    call_forward: resetHistory
     group: util
     
   show_history:
     help:
       key: 'show history'
       def: 'Show the contents of the history table.'
-    call_forward: show_history
+    call_forward: showHistory
     group: util

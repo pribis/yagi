@@ -125,19 +125,15 @@ def processCommand(cmd):
                 command = ' '.join(command)
                 executeGam(command)
 
-def show_history():
+def showHistory():
     global history
     print(history)
 
-def reset_history():
+def resetHistory():
     global history
     print('Resetting history table')
     history = {}
     
-def gamu_new_user():
-    print('Not implemented')
-
-
 def executeGam(command):
     global command_defaults
     ans = input("Execute: 'gam " + command + "'? [y/N]: ")
