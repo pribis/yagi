@@ -16,10 +16,6 @@ command_dict = {}
 command_defaults = {}
 history = {}
 
-#Prompting provides and addes safety net.  
-#This is activated from the help menu
-prompting = 1
-
 def loadConfig():
     global conf_location
     global command_dict
