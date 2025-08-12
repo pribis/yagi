@@ -1,11 +1,6 @@
-import argparse
-import readline
 import subprocess
 import re
 import sys
-import os
-from pprint import pprint
-import signal
 from operator import itemgetter, attrgetter
 import yaml
 
