@@ -2,11 +2,6 @@ defaults:
   gam: '/usr/local/bin/gam'
   debug: 1
 
-  
-shared_inbox:
-  - custom
-  - printing
-  - none
 
 default_domain: [Your google domain]
 

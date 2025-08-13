@@ -28,10 +28,6 @@ Rename the commands.yaml.example file to commands.yaml.
 gam: the location of your gam installation.
 debug: 0 shuts off debugging, 1 turns it on. There isn't much more to it than that.
 
-#### shared_inbox
-This array is specific to our company and may or may not be useful to you. Shared inboxes
-are simply google accounts accessible by multiple people via delegation.
-
 #### commands
 Commands take up the bulk of the configuration and are what YAGI is all about. They have
 a specific format you must follow or YAGI will break.
@@ -54,7 +50,7 @@ the command phrase you will use at the prompt
 
 explanation of command phrase
 
-**command: 'create alias _email_ user _username_'**
+**command: 'create alias \_email\_ user _username_'**
 
 the gam command (see next section)
 
@@ -65,18 +61,16 @@ where on the help screen to group this command
 
 
 ##### gam command
-As shown above, the command sequence has a gam command to execute. The import part are the 
-placeholders, specified but a single underscore attached to the beginning and end of the 
-word. These become the prompt YAGI will use to gather information from you. For example,
+As shown above, the command sequence has a gam command to execute. The important parts are the 
+placeholders, specified by a single underscore attached to the beginning and end of the 
+word. These become the prompts YAGI will use to gather information from you. For example,
 the above command will result in the following prompts:
 > email:
 > username:
 
 If you want the placeholder to be more informative, do not use spaces, use underscores. 
-Ex. _type_your_email_ will produce: 
+Ex. \_type\_your\_email\_ will produce: 
 > type your email.
-
-[NOTE: Use at your own risk. This program is covered under the GNU GPL (v3).]
 
 
 #### command_groups
@@ -90,3 +84,5 @@ Each of these commands must have already been defined under the commands section
 Utils are the most different. These are functions defined in the yagi.py file. 
 For example, call_forward:reset_history executes the reset_history() function.
 You can add anything you want, just make sure you play safe. 
+
+[NOTE: Use at your own risk. This program is covered under the GNU GPL (v3).]
