@@ -56,7 +56,7 @@ def showHelpScreen():
         print(f"{command_dict[command[0]]['help']['key']:20} {command_dict[command[0]]['help']['def']}")
 
         group_count += 1
-    print("Type quit or exit to exit gamu")
+    print("Type quit or exit to exit yagi")
     print("\n")
 
 
@@ -138,7 +138,7 @@ def executeGam(command):
 
 if __name__ == "__main__":
     loadConfig()
-    print('GamU Commands\n')
+    print('yagi commands\n')
     showHelpScreen()
     
     
