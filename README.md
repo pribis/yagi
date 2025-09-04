@@ -36,53 +36,55 @@ Here is a breakdown for adding an alias to a user's account:
 
 **add_alias:**
 
-name of the command
+name of the command.
 
 **help:**
 
-help section used in the help menu
+help section used in the help menu.
 
 **key: 'add alias'**
 
-the command phrase you will use at the prompt
+the command phrase you will use at the prompt.
 
 **def: 'Add an alias to user.'**
 
-explanation of command phrase
+explanation of command phrase. This will be used for building the help menu.
 
-**command: 'create alias \_email\_ user _username_'**
+**command: 'create alias \_email\_  user  \_username\_'**
 
 the gam command (see next section)
 
 **group : alias**
 
-where on the help screen to group this command
+where on the help screen to group this command.
 
 
 
-##### gam command
+### the gam command
 As shown above, the command sequence has a gam command to execute. The important parts are the 
 placeholders, specified by a single underscore attached to the beginning and end of the 
 word. These become the prompts YAGI will use to gather information from you. For example,
 the above command will result in the following prompts:
 > email:
+
 > username:
 
 If you want the placeholder to be more informative, do not use spaces, use underscores. 
-Ex. \_type\_your\_email\_ will produce: 
-> type your email.
+Ex. \_type_your_email\_ will produce: 
+> type your email:
 
 
-#### command_groups
+### command_groups
 
 Mostly these are the same as the commands section but for one major difference.
 Instead of a "command" a "command_set" is used. A command_set is a list of 
 commands to execute one after the other (I haven't tested if order is preserved).
 Each of these commands must have already been defined under the commands section.
 
-#### utils
-Utils are the most different. These are functions defined in the yagi.py file. 
+### utils
+Utils are the most different. These are functions defined in the yagi python file. 
 For example, call_forward:reset_history executes the reset_history() function.
-You can add anything you want, just make sure you play safe. 
+You can add anything you want. (Don't forget that a git pull request will overwrite 
+your changes). 
 
 [NOTE: Use at your own risk. This program is covered under the GNU GPL (v3).]
