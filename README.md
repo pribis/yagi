@@ -21,7 +21,7 @@ The commands.yaml.example file has the following sections. You will need to edit
 However, the rest of the file will probably work as-is, but feel free to make changes
 as you see fit.
 
-Rename the commands.yaml.example file to commands.yaml.
+Rename the commands.example.yaml file to commands.yaml.
 
 
 #### defaults
