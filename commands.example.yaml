@@ -206,7 +206,7 @@ command_groups:
 
 
 ###################################
-# These commands are used by gamu
+# These commands are used by yagi
 # and shouldn't be changed.
 ###################################
 utils:
