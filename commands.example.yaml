@@ -1,10 +1,7 @@
 defaults:
   gam: '/usr/local/bin/gam'
   debug: 1
-
-
-default_domain: [Your google domain]
-
+  domain: [Your google domain]
 
 commands:
   add_alias: 
@@ -223,3 +220,10 @@ utils:
       def: 'Show the contents of the history table.'
     call_forward: showHistory
     group: util
+
+  get_aliases:
+    help:
+      key: 'get aliases'
+      def: 'Show aliases for account.'
+    call_forward: getAliases
+    group: alias
