@@ -125,34 +125,6 @@ def resetHistory():
     global history
     print('Resetting history table')
     history = {}
-
-#This operation is too complex for the normal
-#command structure, so a helper function is needed.
-#See the 'utils' section of commands.yaml
-def getAliases():
-    global command_defaults
-    
-    #Put in default domain?
-    if 'domain' not in command_defaults:
-        print('Default domain not defined. Not continuing.')
-        return
-    
-    domain = input('domain (' + command_defaults['domain'] + '): ')
-    email = input('email: ')
-    if email == '':
-        return
-
-    if command_defaults['domain'] == '':
-        return
-
-    if domain == '':
-        domain = command_defaults['domain']
-
-    command = 'print aliases domains ' + domain + ' queries "\'email:' + email + '\'"'
-    ans = input("Execute: 'gam " + command + "'? [y/N]: ")
-    if ans.lower() == 'y':
-        subprocess.call(command_defaults['gam'] + " " + command , shell=True)
-    
     
 def executeGam(command):
     global command_defaults
