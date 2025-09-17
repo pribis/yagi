@@ -6,7 +6,7 @@ from operator import itemgetter, attrgetter
 import yaml
 
 
-conf_location = 'commands.yaml'
+conf_location = './commands.yaml'
 
 command_dict = {}
 command_defaults = {}
@@ -42,7 +42,7 @@ def showHelpScreen():
 
     group_idx = sorted(group_idx.items(), key=itemgetter(1))
     
-    group = 'alias' #our first group. What do we do if a user defines a different first group?
+    group = 'alias' #our first group. What do we do ifg a user defines a different first group?
     group_count = 0
     for command in group_idx:
 
@@ -156,11 +156,10 @@ def getAliases():
     
 def executeGam(command):
     global command_defaults
-    print(command_defaults['default_domain'])
-    return
     ans = input("Execute: 'gam " + command + "'? [y/N]: ")
     if ans.lower() == 'y':
         #execute
+        print(command_defaults)
         subprocess.call(command_defaults['gam'] + " " + command, shell=True)
         
     else:
