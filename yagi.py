@@ -4,6 +4,7 @@ from tkinter import ttk, simpledialog, messagebox, scrolledtext
 import collections
 import sys
 
+import os
 from yagi_gui import YagiLogic, run_cli
 
 class CenteredQueryDialog(simpledialog.Dialog):
@@ -44,6 +45,42 @@ class CenteredQueryDialog(simpledialog.Dialog):
     def apply(self):
         self.result = self.entry.get()
 
+class CenteredConfirmDialog(simpledialog.Dialog):
+    """A custom confirmation dialog that is centered on its parent."""
+    def __init__(self, parent, title, message):
+        self.message = message
+        super().__init__(parent, title)
+
+    def body(self, master):
+        self.label = ttk.Label(master, text=self.message, justify=tk.LEFT)
+        self.label.pack(padx=10, pady=10)
+
+    def _center_on_parent(self):
+        self.update_idletasks()
+        parent = self.master
+        main_x = parent.winfo_x()
+        main_y = parent.winfo_y()
+        main_width = parent.winfo_width()
+        main_height = parent.winfo_height()
+        dialog_width = self.winfo_width()
+        dialog_height = self.winfo_height()
+        x_pos = main_x + (main_width - dialog_width) // 2
+        y_pos = main_y + (main_height - dialog_height) // 2
+        self.geometry(f"+{x_pos}+{y_pos}")
+
+    def buttonbox(self):
+        box = ttk.Frame(self)
+        self.ok_button = ttk.Button(box, text="Yes", width=10, command=self.ok, default=tk.ACTIVE)
+        self.ok_button.pack(side=tk.LEFT, padx=5, pady=5)
+        cancel_button = ttk.Button(box, text="No", width=10, command=self.cancel)
+        cancel_button.pack(side=tk.LEFT, padx=5, pady=5)
+        self.bind("<Return>", self.ok)
+        self.bind("<Escape>", self.cancel)
+        box.pack()
+        self._center_on_parent()
+
+    def apply(self):
+        self.result = True
 
 class YagiGUI(tk.Tk):
     def __init__(self, yagi_logic):
@@ -73,6 +110,7 @@ class YagiGUI(tk.Tk):
         self.tree.pack(fill=tk.BOTH, expand=True)
         self.populate_command_tree()
         self.tree.bind("<<TreeviewSelect>>", self.on_command_select)
+        self.tree.bind("<Double-1>", self.on_double_click)
 
         # --- Right side: Details and Output ---
         details_frame = ttk.LabelFrame(main_frame, text="Details", padding="10")
@@ -90,8 +128,16 @@ class YagiGUI(tk.Tk):
         output_frame.grid_rowconfigure(0, weight=1)
         output_frame.grid_columnconfigure(0, weight=1)
 
-        self.output_text = scrolledtext.ScrolledText(output_frame, wrap=tk.WORD, state=tk.DISABLED)
+        self.output_text = scrolledtext.ScrolledText(output_frame, wrap=tk.WORD, state=tk.DISABLED, font=("Helvetica", 14))
         self.output_text.pack(fill=tk.BOTH, expand=True)
+
+        # Bring window to the front on startup
+        if sys.platform == "darwin": # macOS
+            try:
+                # A reliable way to bring the window to the front on macOS.
+                os.system(f"""/usr/bin/osascript -e 'tell app "System Events" to set frontmost of first process whose unix id is {os.getpid()} to true'""")
+            except Exception:
+                self.lift() # Fallback
 
     def populate_command_tree(self):
         grouped_commands = self.yagi.get_grouped_commands()
@@ -102,6 +148,13 @@ class YagiGUI(tk.Tk):
             group_id = self.tree.insert("", "end", text=group_name.capitalize(), open=False)
             for command in commands:
                 self.tree.insert(group_id, "end", text=command['key'], values=(command['def'], command['key']))
+
+    def on_double_click(self, event):
+        """Handle double-click on a command to execute it."""
+        item_id = self.tree.identify('item', event.x, event.y)
+        # Check if the double-clicked item is a command (a child node)
+        if item_id and self.tree.parent(item_id):
+            self.run_command()
 
     def on_command_select(self, event):
         selection = self.tree.selection()
@@ -179,7 +232,8 @@ class YagiGUI(tk.Tk):
                 final_command = final_command.replace(ph, val)
 
             full_gam_command = f"gam {final_command}"
-            if messagebox.askyesno("Confirm Execution", f"Execute the following command?\n\n{full_gam_command}"):
+            confirm_dialog = CenteredConfirmDialog(self, "Confirm Execution", f"Execute the following command?\n\n{full_gam_command}")
+            if confirm_dialog.result:
                 self.log_output(f"Executing: {full_gam_command}")
                 self.update_idletasks() # Update GUI before blocking call
 
