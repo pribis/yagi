@@ -12,6 +12,15 @@ I started this project to be included with a sysadmin toolchain I use at a place
 I work. It was just a simple way to make things a bit easier for me. Here's
 to hoping you find some use for it.
 
+### GUI and the CLI
+I have zero talent for GUI design. I do almost everything from the CLI. I created
+a menu driven UI, and that worked well for the most place However, I 
+thought a GUI would be fun. But I had no interest in doing the work since
+it worked well as it was. So, AI to the rescue! I used Gemini and with
+a lot of prompting it was finally done. 
+
+But fear not! Using the -nw switch you can run things from the CLI. By 
+default the GUI will run.  
 
 ### Setup
 YAGI relies on [GAM](https://github.com/GAM-team/GAM/wiki) being installed and set up correctly.
