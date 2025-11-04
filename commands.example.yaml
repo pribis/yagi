@@ -1,16 +1,21 @@
 defaults:
   gam: '/usr/local/bin/gam'
   debug: 1
-  domain: [Your google domain]
+  domain: <your domain>
+  
+shared_inbox:
+  - custom
+  - printing
+  - none
 
 commands:
   add_alias: 
     help:
       key: 'add alias'
       def: 'Add an alias to user.'
-    command: 'create alias _email_ user _username_'
+    command: 'create alias _alias_ user _username_'
     group : alias
-        
+    
   show_alias:
     help:
       key: 'show alias'
@@ -35,7 +40,7 @@ commands:
   show_delegates:
     help:
       key: 'show delegates'
-      def: 'Show delegates for user.'
+      def: 'Show who has access to the account inbox.'
     command: 'user _account_ show delegates'
     group: delegate
     
@@ -43,7 +48,7 @@ commands:
     help:
       key: 'delegate'
       def: 'Delegate an account to a user.'
-    command: 'user _delegate_username_ delegate to _give_access_to_email_'
+    command: 'user _delegate_inbox_ delegate to _give_access_to_'
     group: delegate
     
   del_delegate:
@@ -99,7 +104,7 @@ commands:
     help:
       key: 'add new user'
       def: 'Process a new user.'
-    command: '_email_ _username_ _firstname_ _lastname_'
+    command: 'create user _email_ firstname _firstname_ lastname _lastname_ password _password_'
     group: user
     
   add_to_group:
@@ -143,7 +148,7 @@ commands:
       def: 'Change ACL of calendar (read|editor|owner).'
     command: 'calendar _calendar_email_ update _acl_ _user_email_'
     group: calendar
-
+    
   show_groups:
     help:
       key: 'show groups'
@@ -172,6 +177,14 @@ commands:
     command: 'update group _group_name_ remove _user_email_'
     group: groups
 
+  get_aliases:
+    help:
+      key: 'get aliases'
+      def: 'Show aliases for account.'
+    command: 'print aliases user _user_'
+    group: alias
+
+    
 ################################################
 # Command sets are simply commands
 # grouped together and executed in sequence.
@@ -184,7 +197,7 @@ command_groups:
   personal_routing:
     help:
       key: 'personal routing'
-      def: '[cs]Setup personal routing for a user'
+      def: '[cg]Setup personal routing for a user'
     command_set:
       - add_send_as
       - add_alias
@@ -193,7 +206,7 @@ command_groups:
   add_forward_new:
     help:
       key: 'filter forward new'
-      def: '[cs]Filter email to one account and forward it to another. Trash the original.'
+      def: '[cg]Filter email to one account and forward it to another. Trash the original.'
     command_set:
       - add_forward
       - add_filter_forward
@@ -203,7 +216,7 @@ command_groups:
 
 
 ###################################
-# These commands are used by yagi
+# These commands are used by gamu
 # and shouldn't be changed.
 ###################################
 utils:
@@ -221,9 +234,3 @@ utils:
     call_forward: showHistory
     group: util
 
-  get_aliases:
-    help:
-      key: 'get aliases'
-      def: 'Show aliases for account.'
-    call_forward: getAliases
-    group: alias
